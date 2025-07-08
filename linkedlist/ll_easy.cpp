@@ -1,17 +1,45 @@
 #include<bits/stdc++.h>
 using namespace std;
 //Standard LeetCode like definintion of the linked list 
-/*
-
-*/
-//Reverse a linked list and return the new head
-class Node{
-    int value;
-    Node* next;
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
-void solve(){
 
+// Utility: Build list from vector
+ListNode* buildList(const vector<int>& arr) {if (arr.empty()) return nullptr;ListNode* head = new ListNode(arr[0]);ListNode* current = head;for (int i = 1; i < arr.size(); i++) {current->next = new ListNode(arr[i]);current = current->next; }return head;}
+
+// Utility: Convert list to vector
+vector<int> listToVector(ListNode* head) {vector<int> result;while (head) { result.push_back(head->val);head = head->next;}return result;}
+//Reverse Linked List 
+ListNode* solvereverseLL(ListNode* head) {
+    ListNode* prev = nullptr;      // initially nothing is before head
+    ListNode* current = head;      // start from head
+    ListNode* nextNode = nullptr;  // to store the next node temporarily
+    while (current != nullptr) {
+        nextNode = current->next;  // save next
+        current->next = prev;      // reverse the link
+        prev = current;            // move prev forward
+        current = nextNode;        // move current forward
+    }
+    return prev; // prev is the new head
 }
+//Remove Nth Node From End of List (Medium) > Given the head of a linked list, remove the nth node from the end and return its head.
+ListNode* removefromend(ListNode*){
+    
+}
+void solve() {
+    vector<int> inputVals; int val;while (cin >> val) { inputVals.push_back(val);}
+    ListNode* head = buildList(inputVals);
+    ListNode* result = solvereverseLL(head);  // Replace this with any logic
+    vector<int> output = listToVector(result);
+    for (int i = 0; i < output.size(); i++) {cout << output[i]<< " ";}
+}
+
+// Main
 int main(){
     int t=1;
     // cin>>t;
