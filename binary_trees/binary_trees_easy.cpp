@@ -11,11 +11,11 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-// Build a binary tree from level-order input (-1 for NULL)
-TreeNode* buildTree(const vector<int>& nodes) {
-    if (nodes.empty() || nodes[0] == -1) return nullptr;
+// Build tree from level-order string input like: 3 9 20 null null 15 7
+TreeNode* buildTree(const vector<string>& nodes) {
+    if (nodes.empty() || nodes[0] == "null") return nullptr;
 
-    TreeNode* root = new TreeNode(nodes[0]);
+    TreeNode* root = new TreeNode(stoi(nodes[0]));
     queue<TreeNode*> q;
     q.push(root);
 
@@ -25,15 +25,15 @@ TreeNode* buildTree(const vector<int>& nodes) {
         q.pop();
 
         // Left child
-        if (nodes[i] != -1) {
-            curr->left = new TreeNode(nodes[i]);
+        if (i < nodes.size() && nodes[i] != "null") {
+            curr->left = new TreeNode(stoi(nodes[i]));
             q.push(curr->left);
         }
         i++;
 
         // Right child
-        if (i < nodes.size() && nodes[i] != -1) {
-            curr->right = new TreeNode(nodes[i]);
+        if (i < nodes.size() && nodes[i] != "null") {
+            curr->right = new TreeNode(stoi(nodes[i]));
             q.push(curr->right);
         }
         i++;
@@ -42,9 +42,9 @@ TreeNode* buildTree(const vector<int>& nodes) {
     return root;
 }
 
-// Convert binary tree to vector in level-order (nulls as -1)
-vector<int> treeToVector(TreeNode* root) {
-    vector<int> result;
+// Convert tree to level-order string vector (with "null")
+vector<string> treeToVector(TreeNode* root) {
+    vector<string> result;
     if (!root) return result;
 
     queue<TreeNode*> q;
@@ -52,45 +52,73 @@ vector<int> treeToVector(TreeNode* root) {
     while (!q.empty()) {
         TreeNode* node = q.front(); q.pop();
         if (node) {
-            result.push_back(node->val);
+            result.push_back(to_string(node->val));
             q.push(node->left);
             q.push(node->right);
         } else {
-            result.push_back(-1); // NULL marker
+            result.push_back("null");
         }
     }
 
-    // Trim trailing -1s
-    while (!result.empty() && result.back() == -1)
+    // Trim trailing "null"s
+    while (!result.empty() && result.back() == "null")
         result.pop_back();
 
     return result;
 }
 
-// Example: Your custom logic here
+// Your tree logic here
 TreeNode* solveTree(TreeNode* root) {
-    // For example: return same root (no change)
+    // Example: return tree as is
     return root;
 }
+//Maximum depth of binary tree
+int maxheight(TreeNode* root){
+    if (root == nullptr) return 0;
+    if(root->left==NULL && root->right==NULL){
+       return 1; 
+    }
+    else if(root->left == NULL){
+        return 1+maxheight(root->right);
+    }
+    else if(root->right == NULL){
+        return 1+maxheight(root->left);
+    }
+    else {
+        return 1+max(maxheight(root->left),maxheight(root->right));
+    }
+}
+
+// Same Tree
+
+
+// kth smallest element in a BST
+
+// Validate Binary Search Tree
 
 void solve() {
-    vector<int> values;
-    int x;
-    while (cin >> x) {
-        values.push_back(x);
+    string line;
+    getline(cin, line);
+    stringstream ss(line);
+
+    vector<string> tokens;
+    string temp;
+    while (ss >> temp) {
+        tokens.push_back(temp);
     }
 
-    TreeNode* root = buildTree(values);
+    TreeNode* root = buildTree(tokens);
     TreeNode* newRoot = solveTree(root);
-    vector<int> output = treeToVector(newRoot);
+    vector<string> output = treeToVector(newRoot);
 
-    // Print in [1,2,3,-1,4,...] format
-    cout << "[";
-    for (int i = 0; i < output.size(); i++) {
-        cout << output[i];
-        if (i < output.size() - 1) cout << ",";
-    }
-    cout << "]" << endl;
+    // // Print like [3,9,20,null,null,15,7]
+    // cout << "[";
+     cout << maxheight(root);
+    // for (int i = 0; i < output.size(); i++) {
+    //     cout << output[i];
+    //     if (i < output.size() - 1) cout << ",";
+    // }
+    // cout << "]" << endl;
 }
 
 int main() {
