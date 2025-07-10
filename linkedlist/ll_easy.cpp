@@ -53,16 +53,70 @@ ListNode* addtwonumbers(ListNode* head){
 }
 //Swap nodes in pairs
 ListNode* swappairs(ListNode* head){
+
+}
+
+//Reorder List 
+void reorderList(ListNode* head){
+
+}
+
+//Rotate List to the right by k places(Assuming k is not more than length)
+ListNode* rotateRight(ListNode* head, int k) {
+    if (!head || !head->next || k == 0)
+        return head;
+    // Step 1: Advance the 'first' pointer k steps
+    ListNode* first = head;
+    for (int i = 0; i < k; ++i) {
+        first = first->next;
+    }
+    // Step 2: Move both 'first' and 'second' until first->next == nullptr
+    ListNode* second = head;
+    while (first->next) {
+        first = first->next;
+        second = second->next;
+    }
+    // Step 3: Rotate
+    ListNode* newHead = second->next;
+    second->next = nullptr;
+    first->next = head;
+    return newHead;
+}
+
+//Partition List
+ListNode* partition(ListNode* head, int x){
+    ListNode* second=head;
+    ListNode* first=head;
+    // while(!curr->next)
+
+
+}
+void solver() {
+    vector<int> inputVals;
+    string line;
     
-}
-void solveremovefromend(){
-     vector<int> inputVals; int val;while (cin >> val) { inputVals.push_back(val);}
-     int n;cin>>n;
-     ListNode* head = buildList(inputVals);
-     ListNode* result = removefromend(head,n);
+    // Read first line (the list)
+    getline(cin, line);
+    stringstream ss(line);
+    int val;
+    while (ss >> val) {
+        inputVals.push_back(val);
+    }
+
+    // Read second line (k)
+    int k;
+    cin >> k;
+
+    ListNode* head = buildList(inputVals);
+    ListNode* result = rotateRight(head, k);
     vector<int> output = listToVector(result);
-    for (int i = 0; i < output.size(); i++) {cout << output[i]<< " ";}
+    for (int i = 0; i < output.size(); i++) {
+        cout << output[i] << " ";
+    }
+    cout << endl;
 }
+
+
 // void solve() {
 //     vector<int> inputVals; int val;while (cin >> val) { inputVals.push_back(val);}
 //     ListNode* head = buildList(inputVals);
@@ -76,6 +130,6 @@ int main(){
     int t=1;
     // cin>>t;
     while(t--)
-    {solveremovefromend();}
+    {solver();}
     return 0;
 }

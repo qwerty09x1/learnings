@@ -1,7 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int main(){
+// Number of islands 
+void noofislands(){
     
+}
+int main(){
+    noofislands();
     return 0;
 }

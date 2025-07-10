@@ -93,6 +93,7 @@ void movezeroes(){
 // so that objects of the same color are adjacent, with colors in order red, white, and blue.
 void sortcolors(){
     int n;cin >> n;int arr[n]; for (int i = 0; i < n; i++) {cin >> arr[i];}
+    
 
 }
 //Minimum size subarray sum > Given an array of +ve integers and a target, return the length of a contiguous array whose sum is greater than or 
