@@ -109,6 +109,13 @@ void solver() {
 
     ListNode* head = buildList(inputVals);
     ListNode* result = rotateRight(head, k);
+}
+//Cycle in a linked list 
+void solveremovefromend(){
+     vector<int> inputVals; int val;while (cin >> val) { inputVals.push_back(val);}
+     int n;cin>>n;
+     ListNode* head = buildList(inputVals);
+     ListNode* result = removefromend(head,n);
     vector<int> output = listToVector(result);
     for (int i = 0; i < output.size(); i++) {
         cout << output[i] << " ";
